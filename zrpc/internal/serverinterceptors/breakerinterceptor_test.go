@@ -14,7 +14,7 @@ func TestStreamBreakerInterceptor(t *testing.T) {
 	err := StreamBreakerInterceptor(nil, nil, &grpc.StreamServerInfo{
 		FullMethod: "any",
 	}, func(
-		srv interface{}, stream grpc.ServerStream) error {
+		svr interface{}, stream grpc.ServerStream) error {
 		return status.New(codes.DeadlineExceeded, "any").Err()
 	})
 	assert.NotNil(t, err)

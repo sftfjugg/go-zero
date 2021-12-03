@@ -263,24 +263,24 @@ func (*UnimplementedDepositServiceServer) Deposit(context.Context, *DepositReque
 	return nil, status.Errorf(codes.Unimplemented, "method Deposit not implemented")
 }
 
-func RegisterDepositServiceServer(s *grpc.Server, srv DepositServiceServer) {
-	s.RegisterService(&_DepositService_serviceDesc, srv)
+func RegisterDepositServiceServer(s *grpc.Server, svr DepositServiceServer) {
+	s.RegisterService(&_DepositService_serviceDesc, svr)
 }
 
-func _DepositService_Deposit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DepositService_Deposit_Handler(svr interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DepositRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DepositServiceServer).Deposit(ctx, in)
+		return svr.(DepositServiceServer).Deposit(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     svr,
 		FullMethod: "/mock.DepositService/Deposit",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepositServiceServer).Deposit(ctx, req.(*DepositRequest))
+		return svr.(DepositServiceServer).Deposit(ctx, req.(*DepositRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
